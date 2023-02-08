@@ -24,7 +24,7 @@ export class TeamService {
     const { name } = dto;
     const team = await this.findTeam(name);
     if (team) throw new UnprocessableEntityException('Team already exists');
-    await this.prisma.team.create({
+    return this.prisma.team.create({
       data: { name },
     });
   }
