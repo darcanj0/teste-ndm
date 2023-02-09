@@ -10,7 +10,6 @@ async function bootstrap() {
     .setDescription(`E-sports management API`)
     .setVersion('1.0.0')
     .addTag('auth')
-    .addTag('user')
     .addTag('team')
     .addTag('player')
     .addBearerAuth()
