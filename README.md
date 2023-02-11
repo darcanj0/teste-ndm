@@ -24,6 +24,12 @@ Feito isso, inicie a aplicação:
 ```bash
   yarn start
 ```
+
+Você pode acessar a interface do prisma studio, para observar os dados executando num outro terminal:
+
+```bash
+  npx prisma studio
+```
     
 ## Variáveis de Ambiente
 
