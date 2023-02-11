@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Post, UseGuards, Get } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AddPlayerToTeamDto, CreateTeamDto } from './dto/dto';
@@ -30,5 +30,15 @@ export class TeamController {
     @Body() dto: AddPlayerToTeamDto,
   ) {
     return this.teamService.addPlayerToTeam(teamId, dto);
+  }
+
+  @UseGuards(AuthGuard())
+  @Get()
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Returns all teams',
+  })
+  async findTeams() {
+    return this.teamService.findTeams();
   }
 }

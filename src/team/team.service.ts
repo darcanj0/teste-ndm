@@ -14,6 +14,22 @@ export class TeamService {
     private readonly prisma: PrismaService,
   ) {}
 
+  findTeams() {
+    return this.prisma.team.findMany({
+      select: {
+        id: true,
+        name: true,
+        players: {
+          select: {
+            id: true,
+            age: true,
+            name: true,
+          },
+        },
+      },
+    });
+  }
+
   private async findTeamByName(name: string) {
     const team = await this.prisma.team.findUnique({
       where: { name },
@@ -29,10 +45,10 @@ export class TeamService {
           select: {
             id: true,
             name: true,
-            age: true
-          }
-        }
-      }
+            age: true,
+          },
+        },
+      },
     });
     return team;
   }
@@ -63,15 +79,15 @@ export class TeamService {
     if (!player) throw new NotFoundException('Player does not exist');
 
     if (team.players.length >= 5)
-      throw new UnprocessableEntityException('Team is at its maximum capacity')
+      throw new UnprocessableEntityException('Team is at its maximum capacity');
 
     await this.prisma.player.update({
-      where: {id: playerId},
+      where: { id: playerId },
       data: {
         team: {
-          connect: {id: teamId}
-        }
-      }
-    })
+          connect: { id: teamId },
+        },
+      },
+    });
   }
 }
