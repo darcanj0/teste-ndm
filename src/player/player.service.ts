@@ -9,12 +9,18 @@ export class PlayerService {
     private readonly prisma: PrismaService,
   ) {}
 
-  // private async findPlayer(name: string) {
-  //   const player = await this.prisma.player.findUnique({
-  //     where: { name },
-  //   });
-  //   return player;
-  // }
+  async findPlayersWithoutTeams() {
+    return this.prisma.player.findMany({
+      where: {
+        teamId: { equals: null },
+      },
+      select: {
+        age: true,
+        id: true,
+        name: true,
+      },
+    });
+  }
 
   async createPlayer(dto: CreatePlayerDto) {
     const { name, age } = dto;

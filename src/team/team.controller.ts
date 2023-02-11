@@ -9,7 +9,7 @@ import { TeamService } from './team.service';
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   @ApiBearerAuth()
   @ApiOperation({
@@ -19,7 +19,7 @@ export class TeamController {
     return this.teamService.createTeam(dto);
   }
 
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @Post(':id')
   @ApiBearerAuth()
   @ApiOperation({
@@ -32,7 +32,7 @@ export class TeamController {
     return this.teamService.addPlayerToTeam(teamId, dto);
   }
 
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   @ApiBearerAuth()
   @ApiOperation({
